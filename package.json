@@ -1,12 +1,13 @@
 {
   "name": "apip",
   "type": "module",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "为 serverless 优化的精简 http server，用于替换 koa.js，并继续兼容 koa 中间件生态",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "start": "node ./main/dist/index.js",
     "dev": "tsc --watch",
     "build": "tsc",
     "pub": "npm publish --access public"

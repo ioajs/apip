@@ -7,38 +7,38 @@
 ## Example
 
 ```ts
-import api, { Controller, Get, Post } from 'apip';
-import cors from '@koa/cors';
+import api, { Controller, Get, Post } from "apip";
+import cors from "@koa/cors";
 
-api.use(cors({ origin: '*' }));
+api.use(cors({ origin: "*" }));
 
 api.listen(8080);
 
-api.get('/', function (ctx) {
-  ctx.body = 'hello word'
-})
+api.get("/", (ctx) => {
+  ctx.body = "hello word";
+});
 
-api.post('/user', function (ctx) {
-  ctx.body = 'post'
-})
+api.post("/user", (ctx) => {
+  ctx.body = "post";
+});
 
-api.put('/user/:id'', function (ctx) {
-  ctx.body = 'put'
-})
+api.put("/user/:id", (ctx) => {
+  ctx.body = "put";
+});
 
-api.del('/user/:id', function (ctx) {
-  ctx.body = 'delete'
-})
+api.del("/user/:id", (ctx) => {
+  ctx.body = "delete";
+});
 
 @Controller()
 class Demo {
-  @Get('/test')
+  @Get("/test")
   test(ctx) {
-    ctx.body = { body: 123 }
+    ctx.body = { body: 123 };
   }
-  @Post('/test')
+  @Post("/test")
   test(ctx) {
-    ctx.body = { body: 123 }
+    ctx.body = { body: 123 };
   }
 }
 ```

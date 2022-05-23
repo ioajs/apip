@@ -13,12 +13,14 @@ export interface CTX {
   response: object
   params: object
   status?: number
-  body: ''
+  body: object | string
   get: (name: string) => unknown
   vary: () => void
   [name: string]: any
 }
 
-export interface Next {
-  (): Promise<void>
+export interface Next { (): Promise<void> }
+
+export interface Middleware {
+  (ctx: CTX, next?: Next): Promise<void> | void
 }

@@ -1,3 +1,4 @@
+import type { Middleware } from './types.js';
 import router from './index.js';
 
 export function Controller() {
@@ -12,7 +13,7 @@ export function Controller() {
  * @param middlewares 
  * @returns 
  */
-export function Get(path: string, ...middlewares: Function[]) {
+export function Get(path: string, ...middlewares: Middleware[]) {
   return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
     router.get(path, ...middlewares, descriptor.value);
   }
@@ -24,7 +25,7 @@ export function Get(path: string, ...middlewares: Function[]) {
  * @param middlewares 
  * @returns 
  */
-export function Post(path: string, ...middlewares: Function[]) {
+export function Post(path: string, ...middlewares: Middleware[]) {
   return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
     router.post(path, ...middlewares, descriptor.value);
   }
@@ -36,7 +37,7 @@ export function Post(path: string, ...middlewares: Function[]) {
  * @param middlewares 
  * @returns 
  */
-export function Put(path: string, ...middlewares: Function[]) {
+export function Put(path: string, ...middlewares: Middleware[]) {
   return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
     router.put(path, ...middlewares, descriptor.value);
   }
@@ -48,7 +49,7 @@ export function Put(path: string, ...middlewares: Function[]) {
  * @param middlewares 
  * @returns 
  */
-export function Del(path: string, ...middlewares: Function[]) {
+export function Del(path: string, ...middlewares: Middleware[]) {
   return function (target, propertyKey: string, descriptor: PropertyDescriptor) {
     router.del(path, ...middlewares, descriptor.value);
   }

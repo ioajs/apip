@@ -1,27 +1,11 @@
-import router from './router.js';
-
-const { tree, symbolWildcard, symbolName, symbolMiddleware } = router;
-
-interface CTX {
-  method: string
-  params: object
-  body: object | string
-  path: string
-  status: number
-  request: {
-    header: string[]
-  }
-  [name: string]: any
-  (): any
-}
+import type { CTX } from './types.js';
+import { tree, symbolWildcard, symbolName, symbolMiddleware } from './routerTree.js';
 
 /**
  * koa 路由参数解析、路由分发中间件
  * @param object ctx 请求上下文
  */
 export default async function (ctx: CTX) {
-
-  ctx.params = {};
 
   let iterative = tree[ctx.method];
 
@@ -64,32 +48,35 @@ export default async function (ctx: CTX) {
 
   }
 
-  // 通过path路径查找中间件
-  const pathArray = ctx.path.split('/');
+  ctx.params = {};
 
-  if (pathArray[0] === '') {
-    pathArray.shift();
-  }
+  if (ctx.path !== '/') {
 
-  if (pathArray[pathArray.length - 1] === '') {
-    pathArray.pop();
-  }
+    // 通过 path 路径查找中间件
 
-  for (const path of pathArray) {
+    const pathArray = ctx.path.slice(1).split('/');
 
-    const item = iterative[path];
+    for (const path of pathArray) {
 
-    if (item) { iterative = item; }
+      const item = iterative[path];
 
-    // 当 path 不匹配时，尝试用通配符
-    else if (iterative[symbolWildcard]) {
-      iterative = iterative[symbolWildcard];
-      ctx.params[iterative[symbolName]] = path;
-    } else {
-      return ctx.body = {
-        code: 1000,
-        error: '请求地址无效，未匹配到路由'
-      };
+      if (item) { iterative = item; }
+
+      // 当 path 不匹配时，尝试用通配符
+      else if (iterative[symbolWildcard]) {
+
+        iterative = iterative[symbolWildcard];
+        ctx.params[iterative[symbolName]] = path;
+
+      } else {
+
+        return ctx.body = {
+          code: 1000,
+          error: 'Invalid request address, route match failed'
+        };
+
+      }
+
     }
 
   }
@@ -121,7 +108,7 @@ export default async function (ctx: CTX) {
               lock = true;
               return next();
             } else {
-              throw new Error(`禁止在同一个中间件中多次重复调用 next()`);
+              throw new Error("禁止在同一个中间件中多次重复调用 next()");
             }
 
           });
@@ -134,7 +121,7 @@ export default async function (ctx: CTX) {
 
       ctx.body = {
         code: 1000,
-        error: "请求地址无效，未匹配到路由"
+        error: "Invalid request address, route match failed"
       };
 
     }
@@ -143,7 +130,7 @@ export default async function (ctx: CTX) {
 
     ctx.body = {
       code: 1000,
-      error: "请求地址无效，未匹配到路由"
+      error: "Invalid request address, route match failed"
     };
 
   }
