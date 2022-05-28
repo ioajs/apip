@@ -2,16 +2,24 @@ import http from 'node:http';
 import request from './request.js';
 import { addRouter } from './routerTree.js';
 import type { Middleware } from './types.js';
+export * from "./imports.js";
 export * from "./decorator.js";
 
-export const globalMiddlewares = []; // 全局中间件队列
+/**全局中间件队列 */
+export const globalMiddlewares = []; 
 
 export default {
-  use(func: Middleware) {
-
-    globalMiddlewares.push(func);
-
+  /**
+   * 添加中间件
+   * @param middleware  中间件函数
+   */
+  use(middleware: Middleware) {
+    globalMiddlewares.push(middleware);
   },
+  /**
+   * http 端口监听
+   * @param port 端口号
+   */
   listen(port: number) {
 
     const server = http.createServer({
@@ -61,5 +69,5 @@ export default {
    */
   del(path: string, ...middlewares: Middleware[]) {
     addRouter('DELETE', path, ...globalMiddlewares, ...middlewares);
-  },
+  }
 };

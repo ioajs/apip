@@ -1,3 +1,6 @@
+/**
+ * 网络请求与响应上下文
+ */
 export interface CTX {
   method: string
   header: object
@@ -19,8 +22,14 @@ export interface CTX {
   [name: string]: any
 }
 
+/**
+ * 执行下一个 middleware
+ */
 export interface Next { (): Promise<void> }
 
+/**
+ * 中间件函数
+ */
 export interface Middleware {
   (ctx: CTX, next?: Next): Promise<void> | void
 }
