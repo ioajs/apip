@@ -24,7 +24,7 @@ async function loader(absolutePath: string, container: Container = {}): Promise<
       if (stat.isFile()) {
         // 仅导入扩展名为 .js 的文件
         if (subPath.substring(subPath.length - 3) === '.js') {
-          console.log('>', subPath)
+          console.log('>', subPath);
           container[item] = await import(subPath);
         }
       } else {

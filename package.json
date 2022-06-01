@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "tsc --watch",
     "build": "tsc",
+    "test": "jtm",
     "start": "node ./app/dist/index.js",
     "pub": "npm publish --access public"
   },
