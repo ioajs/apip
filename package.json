@@ -1,29 +1,32 @@
 {
   "name": "apip",
   "type": "module",
-  "version": "0.0.4",
-  "description": "为 serverless 优化的精简 http server，用于替换 koa.js，并继续兼容 koa 中间件生态",
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "dist/index.d.ts",
+  "version": "0.1.0",
+  "description": "为 serverless 环境优化的精简 http server，用于替换 koa.js，并继续兼容 koa 中间件生态",
+  "main": "./lib/index.js",
+  "module": "./lib/index.js",
+  "types": "./**/*.d.ts",
   "scripts": {
     "dev": "tsc --watch",
     "build": "tsc",
     "test": "jtm",
-    "start": "node ./app/dist/index.js",
+    "start": "node ./app/index.js",
     "pub": "npm publish --access public"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./imports": "./dist/imports.js",
-    "./*": "./*"
+    ".": "./main/index.js",
+    "./imports": "./main/imports.js",
+    "./http": "./http/index.js",
+    "./nats": "./nats/index.js"
   },
   "author": "",
   "license": "ISC",
   "files": [
-    "dist"
+    "main/**/*.js",
+    "http/**/*.js"
   ],
   "devDependencies": {
-    "@types/node": "^17.0.35"
+    "@types/node": "^17.0.35",
+    "jtm": "^1.2.1"
   }
 }

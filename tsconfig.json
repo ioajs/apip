@@ -1,18 +1,29 @@
 {
-  "include": [
-    "./src/**/*"
-  ],
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
-    "outDir": "dist",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
-    // "strict": true,
+    "experimentalDecorators": true,
+    "strict": true,
     "declaration": true,
     // "emitDeclarationOnly": true,
     // "noEmit": true,
+    "paths": {
+      "apip": [
+        "./main/index"
+      ],
+      "apip/imports": [
+        "./main/imports"
+      ],
+      "apip/http": [
+        "./http/index"
+      ],
+      "apip/nats": [
+        "./nats/index"
+      ]
+    },
   }
 }
