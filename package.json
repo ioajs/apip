@@ -10,6 +10,7 @@
     "dev": "tsc --watch",
     "build": "tsc",
     "test": "jtm",
+    "clean": "tsc --build --clean",
     "start": "node ./app/index.js",
     "pub": "npm publish --access public"
   },
